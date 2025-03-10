@@ -1,0 +1,8 @@
+# Run type checking
+npm run typecheck
+
+# Run linting
+npm run lint
+
+# Run tests
+npm test

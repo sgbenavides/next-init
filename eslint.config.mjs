@@ -2,6 +2,14 @@ import { FlatCompat } from '@eslint/eslintrc';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+import typescriptParser from '@typescript-eslint/parser';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
+import nextPlugin from '@next/eslint-plugin-next';
+import prettierConfig from 'eslint-config-prettier';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -14,7 +22,7 @@ const eslintConfig = [
     'next/core-web-vitals',
     'next/typescript',
     'plugin:prettier/recommended',
-    'plugin:react/recommended',
+    reactPlugin.configs.recommended,
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     'prettier'
@@ -23,13 +31,13 @@ const eslintConfig = [
   {
     files: ['**/*.ts', '**/*.tsx'],
     plugins: {
-      '@typescript-eslint': import('@typescript-eslint/eslint-plugin'),
-      react: import('eslint-plugin-react'),
-      'react-hooks': import('eslint-plugin-react-hooks'),
-      'jsx-a11y': import('eslint-plugin-jsx-a11y'),
+      '@typescript-eslint': typescriptPlugin,
+      react: reactPlugin,
+      'react-hooks': reactHooksPlugin,
+      'jsx-a11y': jsxA11yPlugin,
     },
     languageOptions: {
-      parser: import('@typescript-eslint/parser'),
+      parser: typescriptParser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
@@ -42,11 +50,14 @@ const eslintConfig = [
       react: {
         version: 'detect',
       },
-      'import/resolver': {
-        typescript: {},
-      },
     },
     rules: {
+      // Accessibility rules
+      'jsx-a11y/alt-text': 'error',
+      'jsx-a11y/anchor-has-content': 'error',
+      'jsx-a11y/aria-props': 'error',
+      'jsx-a11y/role-has-required-aria-props': 'error',
+
       // TypeScript specific rules
       '@typescript-eslint/explicit-module-boundary-types': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
@@ -62,9 +73,6 @@ const eslintConfig = [
       'react/jsx-no-useless-fragment': 'warn',
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
-
-      // Import rules
-      'import/order': 'off',
 
       // General rules
       'no-console': ['warn', { allow: ['warn', 'error'] }],

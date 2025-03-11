@@ -25,5 +25,6 @@ module.exports = {
     'subject-full-stop': [2, 'never', '.'],
     'body-leading-blank': [2, 'always'],
     'footer-leading-blank': [2, 'always'],
+    'header-max-length': [2, 'always', 100],
   },
 };

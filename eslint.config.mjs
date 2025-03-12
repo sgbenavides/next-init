@@ -31,6 +31,14 @@ export default [
     'prettier'
   ),
   {
+    settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json',
+        },
+      },
+    },
     rules: {
       // TypeScript specific rules
       '@typescript-eslint/explicit-module-boundary-types': 'error',
